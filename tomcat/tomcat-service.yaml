@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sls-tomcat-test-svc
+  labels:
+    run: sls-tomcat-test
+  namespace: live-tail-demo
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: sls-tomcat-test
+  type: LoadBalancer

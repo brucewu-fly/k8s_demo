@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sls-nginx-test
+  namespace: live-tail-demo
+spec:
+  selector:
+    matchLabels:
+      run: sls-nginx-test
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: sls-nginx-test
+    spec:
+      containers:
+      - name: sls-nginx-test
+        image: nginx:1.14
+        ports:
+        - containerPort: 80
+        env:
+        ######### 配置 环境变量 ###########
+        - name: aliyun_logs_live-tail-demo-stdout
+          value: stdout

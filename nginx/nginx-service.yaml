@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sls-nginx-test-svc
+  labels:
+    run: sls-nginx-test
+  namespace: live-tail-demo
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: sls-nginx-test
+  type: LoadBalancer

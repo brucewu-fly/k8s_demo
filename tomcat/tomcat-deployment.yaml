@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sls-tomcat-test
+  namespace: live-tail-demo
+spec:
+  selector:
+    matchLabels:
+      run: sls-tomcat-test
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: sls-tomcat-test
+    spec:
+      containers:
+      - name: sls-tomcat-test
+        image: tomcat:8.0
+        ports:
+        - containerPort: 8080
+        env:
+        ######### 配置 环境变量 ###########
+        - name: aliyun_logs_k8s-demo-tomcat
+          value: /usr/local/tomcat/logs/localhost_access_log*
+        ###############################
+        ######### 配置vulume mount ###########
+        volumeMounts:
+        - name: volume-tomcat-logs
+          mountPath: /usr/local/tomcat/logs
+      volumes:
+      - name: volume-tomcat-logs
+        emptyDir: {}
+      ###############################
+ 
+
